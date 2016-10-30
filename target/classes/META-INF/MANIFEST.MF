@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: jwt
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Elena
+Implementation-Vendor-Id: com.elena.project
+Build-Jdk: 1.8.0_65
+Implementation-URL: http://projects.spring.io/spring-boot/jwt/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
