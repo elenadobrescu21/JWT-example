@@ -1,9 +1,8 @@
 package com.elena.config;
 import com.elena.model.AppUser;
 
-
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,15 +26,15 @@ public class DatabaseConfig {
 
 
     @Bean
-    public DataSource getDataSource(){
-    	
-    	return DataSourceBuilder.create()
-    			.username("root")
-    			.password("")
-    			.url("jdbc:mysql://localhost:3306/jwt")
-    			.driverClassName("com.mysql.jdbc.Driver")
-    			.build();
-       
+    public HikariDataSource getDataSource(){
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
+        dataSource.addDataSourceProperty("databaseName", "jwt");
+        dataSource.addDataSourceProperty("portNumber", "3306");
+        dataSource.addDataSourceProperty("serverName", "127.0.0.1");
+        dataSource.addDataSourceProperty("user", "root");
+        dataSource.addDataSourceProperty("password", "");
+        return dataSource;
     }
 
 
@@ -49,7 +48,7 @@ public class DatabaseConfig {
     @Bean(name = "sessionFactory")
     public LocalSessionFactoryBean hibernate5SessionFactoryBean(){
         LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
-        localSessionFactoryBean.setDataSource(appContext.getBean(DataSource.class));
+        localSessionFactoryBean.setDataSource(appContext.getBean(HikariDataSource.class));
         localSessionFactoryBean.setAnnotatedClasses(
                 AppUser.class
         );

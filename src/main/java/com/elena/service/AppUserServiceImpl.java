@@ -16,6 +16,7 @@ public class AppUserServiceImpl implements AppUserService {
 	@Autowired
     private SessionFactory sessionFactory;
 	
+	
 	@Override
     @Transactional
     public AppUser loadUserByUsername(String username) {
